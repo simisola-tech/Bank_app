@@ -1,10 +1,27 @@
-
 import React, { useState } from "react";
 import "../Styles/Login.css";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "../Context/LoginContext";
 
 const Login = () => {
-  const nav = useNavigate();
+  const navigate = useNavigate();
+  const { login } = useLogin();
+
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!login(fullName, password)) {
+      setError("Please enter your name and password.");
+      return;
+    }
+
+    setError("");
+    navigate("/landing");
+  };
 
   return (
     <div className="container">
@@ -12,23 +29,33 @@ const Login = () => {
         <h2>Hello!</h2>
         <p>Sign In to Get Started</p>
 
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <div className="inputGroup">
             <label>Full Name</label>
-            <input type="text" name="name" placeholder="Enter full name" />
+            <input
+              type="text"
+              placeholder="Enter full name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
           </div>
 
           <div className="inputGroup">
             <label>Password</label>
             <input
               type="password"
-              name="password"
               placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button className="login-btn" onClick={() => nav("/landingPage")}>Login</button>
+          <button type="submit" className="login-btn">
+            Login
+          </button>
         </form>
+
+        {error && <p className="error">{error}</p>}
 
         <p className="forgot">Forgot Password?</p>
       </div>
