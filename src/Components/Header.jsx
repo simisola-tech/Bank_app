@@ -4,8 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useLogin } from "../Context/LoginContext";
 
 const Header = () => {
-  const nav = useNavigate();
-  const { user } = useLogin();
+  const { user, logout } = useLogin();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="HeaderContainer">
@@ -16,7 +21,7 @@ const Header = () => {
 
         <div className="right">
           <p>{user?.name}</p>
-          <button onClick={() => nav("/")} className="header_login_btn">
+          <button onClick={handleLogout} className="header_login_btn">
             Logout
           </button>
         </div>
