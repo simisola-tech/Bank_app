@@ -37,6 +37,7 @@ const Login = () => {
               placeholder="Enter full name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
+              autoComplete="current-fullname"
             />
           </div>
 
