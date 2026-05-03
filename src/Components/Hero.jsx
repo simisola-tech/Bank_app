@@ -7,7 +7,7 @@ const Hero = () => {
   const { users, transactions, error } = useSelector((state) => state.login);
   const { user } = useSelector((state) => state.login);
 
-  const currentUser = users[0]; // Replace with actual logged-in user from auth
+  const currentUser = users[0]; 
   const [formData, setFormData] = useState({
     fromAccount: currentUser?.accNo || "",
     recipientName: "",
